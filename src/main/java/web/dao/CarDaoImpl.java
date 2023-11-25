@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CarDaoImpl implements CarDao {
-    private List<Car> cars = new ArrayList<>() {{
+    private final List<Car> cars = new ArrayList<>() {{
         add(new Car("Tesla", 2021, 40000));
         add(new Car("Toyota", 2001, 2000));
         add(new Car("BMW", 1992, 2500));
