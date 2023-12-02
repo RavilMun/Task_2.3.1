@@ -1,7 +1,6 @@
 package web.dao;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
 import javax.persistence.EntityManager;
@@ -11,7 +10,6 @@ import java.util.List;
 
 
 @Repository
-@Transactional
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
@@ -19,13 +17,11 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    @Transactional
     public void addUser(User user) {
         entityManager.persist(user);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public User getById(Long id) {
         String jpql = "SELECT u FROM User u WHERE u.id = :id";
         TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
@@ -34,7 +30,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional
     public void deleteUser(Long userId) {
         User userToDelete = entityManager.find(User.class, userId);
         if (userToDelete != null) {
@@ -43,7 +38,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<User> index() {
         String jpql = "SELECT u FROM User u";
         TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
@@ -51,7 +45,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional
     public void updateUser(User user) {
         entityManager.merge(user);
     }
